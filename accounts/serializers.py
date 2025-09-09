@@ -1,27 +1,116 @@
+import re
+
 from rest_framework import serializers
-from django.contrib.auth.password_validation import validate_password
-from .models import CustomUser, Tenant, Membership
+from rest_framework.validators import UniqueValidator
+
+from constants import ROLE_CHOICES
+from .models import CustomUser, Organization, Membership
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+        error_messages={
+            "blank": "Email cannot be empty.",
+        },
+        validators=[
+            UniqueValidator(
+                queryset=CustomUser.objects.all(),
+                message="This email is already registered.",
+            )
+        ],
+    )
+    phone = serializers.CharField(
+        error_messages={
+            "blank": "Phone cannot be empty.",
+        },
+        validators=[
+            UniqueValidator(
+                queryset=CustomUser.objects.all(),
+                message="This phone is already registered.",
+            )
+        ],
+    )
     password = serializers.CharField(
-        write_only=True,
-        required=True,
-        validators=[validate_password],
+        error_messages={
+            "blank": "Password cannot be empty.",
+        },
     )
 
     class Meta:
         model = CustomUser
-        fields = ["username", "email", "password"]
+        fields = ["email", "phone", "password"]
+
+    def validate_email(self, value):
+        if not value.endswith("@example.com"):
+            raise serializers.ValidationError("Email must be from example.com domain.")
+        return value
+
+    def validate_phone(self, value):
+        if not re.match(r"^\d{11}$", value):
+            raise serializers.ValidationError("Phone must be 11 digits.")
+        return value
+
+    def validate_password(self, value):
+        if len(value) < 6:
+            raise serializers.ValidationError(
+                "Password must be at least 6 characters long."
+            )
+        if not re.search(r"[A-Z]", value):
+            raise serializers.ValidationError(
+                "Password must contain at least one uppercase letter."
+            )
+        if not re.search(r"[0-9]", value):
+            raise serializers.ValidationError(
+                "Password must contain at least one digit."
+            )
+        return value
 
     def create(self, validated_data):
         user = CustomUser(
-            username=validated_data["username"],
+            username=validated_data["phone"],
+            phone=validated_data["phone"],
             email=validated_data["email"],
         )
         user.set_password(validated_data["password"])
         user.save()
         return user
+
+
+class LoginSerializer(serializers.ModelSerializer):
+    phone = serializers.CharField(
+        error_messages={
+            "blank": "Phone cannot be empty.",
+        },
+    )
+    password = serializers.CharField(
+        error_messages={
+            "blank": "Password cannot be empty.",
+        },
+    )
+
+    class Meta:
+        model = CustomUser
+        fields = ["phone", "password"]
+
+    def validate_phone(self, value):
+        if not re.match(r"^\d{11}$", value):
+            raise serializers.ValidationError("Phone must be 11 digits.")
+        return value
+
+    def validate_password(self, value):
+        if len(value) < 6:
+            raise serializers.ValidationError(
+                "Password must be at least 6 characters long."
+            )
+        if not re.search(r"[A-Z]", value):
+            raise serializers.ValidationError(
+                "Password must contain at least one uppercase letter."
+            )
+        if not re.search(r"[0-9]", value):
+            raise serializers.ValidationError(
+                "Password must contain at least one digit."
+            )
+        return value
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -30,16 +119,16 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["id", "username", "email"]
 
 
-class TenantSerializer(serializers.ModelSerializer):
+class OrganizationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Tenant
+        model = Organization
         fields = ["id", "name", "created_at"]
         read_only_fields = ["id", "created_at"]
 
 
 class AddMemberSerializer(serializers.Serializer):
     email = serializers.EmailField()
-    role = serializers.ChoiceField(choices=Membership.ROLE_CHOICES)
+    role = serializers.ChoiceField(choices=ROLE_CHOICES)
 
     def validate_email(self, value):
         if not CustomUser.objects.filter(email=value).exists():

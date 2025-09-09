@@ -1,0 +1,19 @@
+ROLE_USER = "USER"
+ROLE_OWNER = "OWNER"
+ROLE_ADMIN = "ADMIN"
+ROLE_MEMBER = "MEMBER"
+
+ROLE_CHOICES = [
+    (ROLE_OWNER, "Owner"),
+    (ROLE_ADMIN, "Admin"),
+    (ROLE_MEMBER, "Member"),
+    (ROLE_USER, "User"),
+]
+
+ORG_ROLE_CHOICES = [
+    (ROLE_OWNER, "Owner"),
+    (ROLE_ADMIN, "Admin"),
+    (ROLE_MEMBER, "Member"),
+]
+
+ADMIN_ROLES = [ROLE_OWNER, ROLE_ADMIN]

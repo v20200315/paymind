@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
-from .models import CustomUser, Tenant, Membership
+from .models import CustomUser, Organization, Membership
 
 
 @admin.register(CustomUser)
@@ -49,9 +49,9 @@ class CustomUserAdmin(BaseUserAdmin):
     )
 
 
-@admin.register(Tenant)
-class TenantAdmin(admin.ModelAdmin):
-    model = Tenant
+@admin.register(Organization)
+class OrganizationAdmin(admin.ModelAdmin):
+    model = Organization
     list_display = ("id", "name", "created_at")
     search_fields = ("name",)
     readonly_fields = ("id", "created_at")
@@ -61,8 +61,8 @@ class TenantAdmin(admin.ModelAdmin):
 @admin.register(Membership)
 class MembershipAdmin(admin.ModelAdmin):
     model = Membership
-    list_display = ("id", "tenant", "user", "role", "created_at")
+    list_display = ("id", "organization", "user", "role", "created_at")
     list_filter = ("role", "created_at")
-    search_fields = ("tenant__name", "user__username", "user__email")
+    search_fields = ("organization__name", "user__username", "user__email")
     readonly_fields = ("id", "created_at")
     ordering = ("-created_at",)
