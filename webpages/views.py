@@ -40,27 +40,27 @@ def security(request):
 
 
 @login_required(login_url="/login")
-def samples_user(request):
+def sandbox_user(request):
     menus = get_user_menus(request.user)
-    return render(request, "console/samples/user.html", {"menus": menus})
+    return render(request, "console/sandbox/user.html", {"menus": menus})
 
 
 @login_required(login_url="/login")
-def samples_member(request):
+def sandbox_member(request):
     menus = get_user_menus(request.user)
-    return render(request, "console/samples/member.html", {"menus": menus})
+    return render(request, "console/sandbox/member.html", {"menus": menus})
 
 
 @login_required(login_url="/login")
-def samples_admin(request):
+def sandbox_admin(request):
     menus = get_user_menus(request.user)
-    return render(request, "console/samples/admin.html", {"menus": menus})
+    return render(request, "console/sandbox/admin.html", {"menus": menus})
 
 
 @login_required(login_url="/login")
-def samples_owner(request):
+def sandbox_owner(request):
     menus = get_user_menus(request.user)
-    return render(request, "console/samples/owner.html", {"menus": menus})
+    return render(request, "console/sandbox/owner.html", {"menus": menus})
 
 
 def get_user_menus(user):

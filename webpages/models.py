@@ -1,9 +1,10 @@
+import uuid
 from django.db import models
-
 from constants import ROLE_CHOICES
 
 
 class Menu(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=100)
     url = models.CharField(max_length=255, blank=True, null=True)
     icon = models.CharField(max_length=50, blank=True, null=True)

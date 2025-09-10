@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-from constants import ORG_ROLE_CHOICES, ADMIN_ROLES, ROLE_USER, ROLE_MEMBER
+from constants import ORG_ROLE_CHOICES, ADMIN_ROLES, ROLE_USER, ROLE_MEMBER, ROLE_OWNER
 
 
 class Organization(models.Model):
@@ -15,7 +15,7 @@ class Organization(models.Model):
 
     def get_owner(self):
         """获取组织的 OWNER 用户"""
-        membership = self.memberships.filter(role="OWNER").first()
+        membership = self.memberships.filter(role=ROLE_OWNER).first()
         return membership.user if membership else None
 
 

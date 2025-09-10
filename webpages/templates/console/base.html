@@ -211,7 +211,7 @@
                             <li class="nav-item">
                                 <a href="{{ menu.url|default:'#' }}"
                                    class="nav-link {% if request.path == menu.url %}active{% endif %}">
-                                    <i class="nav-icon fas {{ menu.icon }}"></i>
+                                    <i class="nav-icon {{ menu.icon }}"></i>
                                     <p>
                                         {{ menu.title }}
                                     </p>
@@ -220,7 +220,7 @@
                         {% else %}
                             <li class="nav-item {% if request.path|startswith:menu.url %}menu-open{% endif %}">
                                 <a href="#" class="nav-link {% if request.path|startswith:menu.url %}active{% endif %}">
-                                    <i class="nav-icon fas {{ menu.icon }}"></i>
+                                    <i class="nav-icon {{ menu.icon }}"></i>
                                     <p>
                                         {{ menu.title }}
                                         <i class="right fas fa-angle-left"></i>

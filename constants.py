@@ -1,7 +1,7 @@
-ROLE_USER = "USER"
-ROLE_OWNER = "OWNER"
-ROLE_ADMIN = "ADMIN"
-ROLE_MEMBER = "MEMBER"
+ROLE_USER = "user"
+ROLE_OWNER = "owner"
+ROLE_ADMIN = "admin"
+ROLE_MEMBER = "member"
 
 ROLE_CHOICES = [
     (ROLE_OWNER, "Owner"),

@@ -9,7 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         # 一级菜单
         dashboard, _ = Menu.objects.update_or_create(
-            title="Dashboard",
+            title="仪表盘",
             defaults={
                 "url": "/dashboard",
                 "icon": "fas fa-tachometer-alt",
@@ -21,9 +21,9 @@ class Command(BaseCommand):
         )
 
         samples_menu, _ = Menu.objects.update_or_create(
-            title="Samples",
+            title="Sandbox",
             defaults={
-                "url": None,
+                "url": "/sandbox",
                 "icon": "fas fa-folder",
                 "order": 2,
                 "role": ROLE_USER,
@@ -33,10 +33,10 @@ class Command(BaseCommand):
         )
 
         settings_menu, _ = Menu.objects.update_or_create(
-            title="Settings",
+            title="系统设置",
             defaults={
-                "url": None,  # 一级菜单可无 URL
-                "icon": "fas fa-cogs",
+                "url": "/settings",
+                "icon": "fas fa-cog",
                 "order": 3,
                 "role": ROLE_USER,
                 "is_active": True,
@@ -46,9 +46,9 @@ class Command(BaseCommand):
 
         # Samples 子菜单
         Menu.objects.update_or_create(
-            title="User Sample",
+            title="User",
             defaults={
-                "url": "/samples/user",
+                "url": "/sandbox/user",
                 "icon": "far fa-circle",
                 "order": 1,
                 "role": ROLE_USER,
@@ -59,7 +59,7 @@ class Command(BaseCommand):
 
         # Settings 子菜单
         Menu.objects.update_or_create(
-            title="Profile",
+            title="个人资料",
             defaults={
                 "url": "/settings/profile",
                 "icon": "far fa-circle",
@@ -71,7 +71,7 @@ class Command(BaseCommand):
         )
 
         Menu.objects.update_or_create(
-            title="Security",
+            title="安全设置",
             defaults={
                 "url": "/settings/security",
                 "icon": "far fa-circle",

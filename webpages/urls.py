@@ -9,8 +9,8 @@ urlpatterns = [
     path("dashboard", views.dashboard, name="dashboard_page"),
     path("settings/profile", views.profile, name="profile_page"),
     path("settings/security", views.security, name="security_page"),
-    path("samples/user", views.samples_user, name="samples_user_page"),
-    path("samples/member", views.samples_member, name="samples_member_page"),
-    path("samples/admin", views.samples_admin, name="samples_admin_page"),
-    path("samples/owner", views.samples_owner, name="samples_owner_page"),
+    path("sandbox/user", views.sandbox_user, name="sandbox_user_page"),
+    path("sandbox/member", views.sandbox_member, name="sandbox_member_page"),
+    path("sandbox/admin", views.sandbox_admin, name="sandbox_admin_page"),
+    path("sandbox/owner", views.sandbox_owner, name="sandbox_owner_page"),
 ]
