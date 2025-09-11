@@ -22,9 +22,10 @@
 <script src="{% static 'adminlte320/plugins/jquery/jquery.min.js' %}"></script>
 <!-- Bootstrap 4 -->
 <script src="{% static 'adminlte320/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+{% block extra_js %}{% endblock %}
 <!-- AdminLTE App -->
 <script src="{% static 'adminlte320/dist/js/adminlte.min.js' %}"></script>
 <script src="{% static 'js/utils.js' %}"></script>
-{% block extra_js %}{% endblock %}
+{% block extra_custom_js %}{% endblock %}
 </body>
 </html>

@@ -3,7 +3,8 @@
 {% block title %}Login Page{% endblock %}
 {% block extra_css %}{% endblock %}
 {% block body_custom_css_tag %}login-page{% endblock %}
-{% block extra_js %}
+{% block extra_js %}{% endblock %}
+{% block extra_custom_js %}
     <script src="{% static 'js/auth/login.js' %}"></script>
 {% endblock %}
 {% block content %}
@@ -16,7 +17,7 @@
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form id="loginForm" method="post">
+                <form id="login_form" method="post">
                     {% csrf_token %}
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" name="phone" placeholder="Phone">

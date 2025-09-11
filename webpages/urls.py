@@ -13,4 +13,6 @@ urlpatterns = [
     path("sandbox/member", views.sandbox_member, name="sandbox_member_page"),
     path("sandbox/admin", views.sandbox_admin, name="sandbox_admin_page"),
     path("sandbox/owner", views.sandbox_owner, name="sandbox_owner_page"),
+    path("sandbox/product", views.sandbox_product, name="sandbox_product_page"),
+    path("sandbox/customer", views.sandbox_customer, name="sandbox_customer_page"),
 ]

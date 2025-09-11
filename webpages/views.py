@@ -1,7 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
-from webpages.decorators import admin_required
 from webpages.models import Menu
 
 
@@ -61,6 +59,18 @@ def sandbox_admin(request):
 def sandbox_owner(request):
     menus = get_user_menus(request.user)
     return render(request, "console/sandbox/owner.html", {"menus": menus})
+
+
+@login_required(login_url="/login")
+def sandbox_product(request):
+    menus = get_user_menus(request.user)
+    return render(request, "console/sandbox/product.html", {"menus": menus})
+
+
+@login_required(login_url="/login")
+def sandbox_customer(request):
+    menus = get_user_menus(request.user)
+    return render(request, "console/sandbox/customer.html", {"menus": menus})
 
 
 def get_user_menus(user):
