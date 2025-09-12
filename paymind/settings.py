@@ -34,15 +34,17 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
-    "accounts",
-    "sandbox",
-    "webpages",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "common",
+    "accounts",
+    "workforce",
+    "sandbox",
+    "webpages",
 ]
 
 MIDDLEWARE = [
