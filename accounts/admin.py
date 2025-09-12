@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
-from .models import CustomUser, Organization, Membership
+from .models import CustomUser, Role
 
 
 @admin.register(CustomUser)
@@ -11,18 +11,22 @@ class CustomUserAdmin(BaseUserAdmin):
         "id",
         "username",
         "email",
+        "role",
         "is_active",
         "is_staff",
         "is_superuser",
         "date_joined",
     )
-    list_filter = ("is_staff", "is_superuser", "is_active")
+    list_filter = ("is_staff", "is_superuser", "is_active", "role")
     search_fields = ("username", "email")
     ordering = ("id",)
 
     fieldsets = (
         (None, {"fields": ("username", "email", "password")}),
-        (_("Personal Info"), {"fields": ("first_name", "last_name")}),
+        (
+            _("Personal Info"),
+            {"fields": ("first_name", "last_name", "phone", "role")},
+        ),
         (
             _("Permissions"),
             {
@@ -43,26 +47,20 @@ class CustomUserAdmin(BaseUserAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fields": ("username", "email", "password1", "password2"),
+                "fields": (
+                    "username",
+                    "email",
+                    "password1",
+                    "password2",
+                    "role",
+                ),
             },
         ),
     )
 
 
-@admin.register(Organization)
-class OrganizationAdmin(admin.ModelAdmin):
-    model = Organization
-    list_display = ("id", "name", "created_at")
-    search_fields = ("name",)
-    readonly_fields = ("id", "created_at")
-    ordering = ("-created_at",)
-
-
-@admin.register(Membership)
-class MembershipAdmin(admin.ModelAdmin):
-    model = Membership
-    list_display = ("id", "organization", "user", "role", "created_at")
-    list_filter = ("role", "created_at")
-    search_fields = ("organization__name", "user__username", "user__email")
-    readonly_fields = ("id", "created_at")
-    ordering = ("-created_at",)
+@admin.register(Role)
+class RoleAdmin(admin.ModelAdmin):
+    list_display = ("id", "code", "name")
+    search_fields = ("code", "name")
+    ordering = ("code",)

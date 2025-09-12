@@ -2,9 +2,7 @@ import re
 
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-
-from constants import ROLE_CHOICES
-from .models import CustomUser, Organization, Membership
+from .models import CustomUser, Role
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -72,6 +70,11 @@ class RegisterSerializer(serializers.ModelSerializer):
             email=validated_data["email"],
         )
         user.set_password(validated_data["password"])
+        try:
+            default_role = Role.objects.get(code="User")
+        except Role.DoesNotExist:
+            default_role = None
+        user.role = default_role
         user.save()
         return user
 
@@ -117,20 +120,3 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ["id", "username", "email"]
-
-
-class OrganizationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Organization
-        fields = ["id", "name", "created_at"]
-        read_only_fields = ["id", "created_at"]
-
-
-class AddMemberSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    role = serializers.ChoiceField(choices=ROLE_CHOICES)
-
-    def validate_email(self, value):
-        if not CustomUser.objects.filter(email=value).exists():
-            raise serializers.ValidationError("具有此电子邮件的用户不存在。")
-        return value

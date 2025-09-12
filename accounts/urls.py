@@ -8,13 +8,9 @@ from .views import (
     SessionLoginView,
     JWTLogoutView,
     SessionLogoutView,
-    OrganizationViewSet,
-    AddMemberView,
-    RemoveMemberView,
 )
 
 router = DefaultRouter()
-router.register(r"organizations", OrganizationViewSet, basename="organization")
 
 urlpatterns = [
     path("register/", RegisterView.as_view(), name="register"),
@@ -24,14 +20,4 @@ urlpatterns = [
     path("logout/jwt/", JWTLogoutView.as_view(), name="logout"),
     path("logout/session/", SessionLogoutView.as_view(), name="logout"),
     path("", include(router.urls)),
-    path(
-        "organizations/<uuid:organization_id>/add-member/",
-        AddMemberView.as_view(),
-        name="add_member",
-    ),
-    path(
-        "organizations/<uuid:organization_id>/remove-member/<uuid:user_id>/",
-        RemoveMemberView.as_view(),
-        name="remove_member",
-    ),
 ]
