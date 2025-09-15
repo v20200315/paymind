@@ -95,4 +95,4 @@ theme/static_src/node_modules/
 # Optional/temporary files
 theme/static_src/.DS_Store
 
-!adminlte320/dist/
+!webpages/static/adminlte320/dist/
