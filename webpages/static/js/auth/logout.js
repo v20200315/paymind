@@ -3,7 +3,7 @@ $(function () {
         e.preventDefault();
         const csrftoken = getCookie("csrftoken");
         $.ajax({
-            url: BASE_URL + "api/auth/logout/session/",
+            url: BASE_URL + "api/accounts/logout/session/",
             type: "POST",
             headers: {"X-CSRFToken": csrftoken},
             dataType: "json",

@@ -74,7 +74,7 @@ def sandbox_customer(request):
 
 
 def get_user_menus(user):
-    role = user.get_role(organization=None)
+    role = "user"
     menus = Menu.objects.filter(is_active=True, parent__isnull=True).order_by("order")
 
     def build_tree(menu):

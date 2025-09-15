@@ -8,7 +8,7 @@ $(function () {
         };
         const remember = $('input[name="remember"]').is(':checked')
         $.ajax({
-            url: BASE_URL + "api/auth/login/session/",
+            url: BASE_URL + "api/accounts/login/session/",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(formData),

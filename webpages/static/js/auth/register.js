@@ -10,7 +10,7 @@ $(function () {
         const terms = $('input[name="terms"]').is(':checked')
         if (terms) {
             $.ajax({
-                url: BASE_URL + "api/auth/register/",
+                url: BASE_URL + "api/accounts/register/",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(formData),
